@@ -53,8 +53,8 @@ static void	TCXAdjustFrame(int scrnIndex, int x, int y, int flags);
 
 /* Optional functions */
 static void	TCXFreeScreen(int scrnIndex, int flags);
-static ModeStatus TCXValidMode(int scrnIndex, DisplayModePtr mode,
-			       Bool verbose, int flags);
+static int	TCXValidMode(int scrnIndex, DisplayModePtr mode, Bool verbose,
+			     int flags);
 
 void TCXSync(ScrnInfoPtr pScrn);
 
@@ -104,7 +104,7 @@ static XF86ModuleVersionInfo suntcxVersRec =
 	MODULEVENDORSTRING,
 	MODINFOSTRING1,
 	MODINFOSTRING2,
-	XORG_VERSION_CURRENT,
+	XF86_VERSION_CURRENT,
 	TCX_MAJOR_VERSION, TCX_MINOR_VERSION, TCX_PATCHLEVEL,
 	ABI_CLASS_VIDEODRV,
 	ABI_VIDEODRV_VERSION,
@@ -720,7 +720,7 @@ TCXFreeScreen(int scrnIndex, int flags)
 /* Checks if a mode is suitable for the selected chipset. */
 
 /* Optional */
-static ModeStatus
+static int
 TCXValidMode(int scrnIndex, DisplayModePtr mode, Bool verbose, int flags)
 {
     if (mode->Flags & V_INTERLACE)
