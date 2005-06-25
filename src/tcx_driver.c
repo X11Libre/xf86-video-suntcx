@@ -53,8 +53,8 @@ static void	TCXAdjustFrame(int scrnIndex, int x, int y, int flags);
 
 /* Optional functions */
 static void	TCXFreeScreen(int scrnIndex, int flags);
-static int	TCXValidMode(int scrnIndex, DisplayModePtr mode, Bool verbose,
-			     int flags);
+static ModeStatus TCXValidMode(int scrnIndex, DisplayModePtr mode,
+			       Bool verbose, int flags);
 
 void TCXSync(ScrnInfoPtr pScrn);
 
@@ -73,7 +73,7 @@ void TCXSync(ScrnInfoPtr pScrn);
  * an upper-case version of the driver name.
  */
 
-DriverRec SUNTCX = {
+_X_EXPORT DriverRec SUNTCX = {
     VERSION,
     TCX_DRIVER_NAME,
     TCXIdentify,
@@ -104,7 +104,7 @@ static XF86ModuleVersionInfo suntcxVersRec =
 	MODULEVENDORSTRING,
 	MODINFOSTRING1,
 	MODINFOSTRING2,
-	XF86_VERSION_CURRENT,
+	XORG_VERSION_CURRENT,
 	TCX_MAJOR_VERSION, TCX_MINOR_VERSION, TCX_PATCHLEVEL,
 	ABI_CLASS_VIDEODRV,
 	ABI_VIDEODRV_VERSION,
@@ -112,7 +112,7 @@ static XF86ModuleVersionInfo suntcxVersRec =
 	{0,0,0,0}
 };
 
-XF86ModuleData suntcxModuleData = { &suntcxVersRec, tcxSetup, NULL };
+_X_EXPORT XF86ModuleData suntcxModuleData = { &suntcxVersRec, tcxSetup, NULL };
 
 pointer
 tcxSetup(pointer module, pointer opts, int *errmaj, int *errmin)
@@ -720,7 +720,7 @@ TCXFreeScreen(int scrnIndex, int flags)
 /* Checks if a mode is suitable for the selected chipset. */
 
 /* Optional */
-static int
+static ModeStatus
 TCXValidMode(int scrnIndex, DisplayModePtr mode, Bool verbose, int flags)
 {
     if (mode->Flags & V_INTERLACE)
