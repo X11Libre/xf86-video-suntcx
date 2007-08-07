@@ -66,9 +66,9 @@ void TCXSync(ScrnInfoPtr pScrn);
 #define TCX_VERSION 4000
 #define TCX_NAME "SUNTCX"
 #define TCX_DRIVER_NAME "suntcx"
-#define TCX_MAJOR_VERSION 1
-#define TCX_MINOR_VERSION 1
-#define TCX_PATCHLEVEL 0
+#define TCX_MAJOR_VERSION PACKAGE_VERSION_MAJOR
+#define TCX_MINOR_VERSION PACKAGE_VERSION_MINOR
+#define TCX_PATCHLEVEL PACKAGE_VERSION_PATCHLEVEL
 
 /* 
  * This contains the functions needed by the server after loading the driver
