@@ -169,7 +169,7 @@ TCXFreeRec(ScrnInfoPtr pScrn)
 
     pTcx = GET_TCX_FROM_SCRN(pScrn);
 
-    xfree(pScrn->driverPrivate);
+    free(pScrn->driverPrivate);
     pScrn->driverPrivate = NULL;
 
     return;
@@ -239,7 +239,7 @@ TCXProbe(DriverPtr drv, int flags)
 		   devSections, numDevSections,
 		   drv, &usedChips);
 				    
-    xfree(devSections);
+    free(devSections);
     if (numUsed <= 0)
 	return FALSE;
 
@@ -273,9 +273,9 @@ TCXProbe(DriverPtr drv, int flags)
 	    xf86AddEntityToScreen(pScrn, pEnt->index);
 	    foundScreen = TRUE;
 	}
-	xfree(pEnt);
+	free(pEnt);
     }
-    xfree(usedChips);
+    free(usedChips);
     return foundScreen;
 }
 
@@ -373,7 +373,7 @@ TCXPreInit(ScrnInfoPtr pScrn, int flags)
     /* Collect all of the relevant option flags (fill in pScrn->options) */
     xf86CollectOptions(pScrn, NULL);
     /* Process the options */
-    if (!(pTcx->Options = xalloc(sizeof(TCXOptions))))
+    if (!(pTcx->Options = malloc(sizeof(TCXOptions))))
 	return FALSE;
     memcpy(pTcx->Options, TCXOptions, sizeof(TCXOptions));
     xf86ProcessOptions(pScrn->scrnIndex, pScrn->options, pTcx->Options);
