@@ -32,6 +32,7 @@
 #include "xf86sbusBus.h"
 #include "tcx_regs.h"
 
+#include "compat-api.h"
 /* Various offsets in virtual (ie. mmap()) spaces Linux and Solaris support. */
 #define TCX_RAM8_VOFF		0x00000000
 #define TCX_RAM24_VOFF		0x01000000

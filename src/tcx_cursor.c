@@ -124,7 +124,7 @@ TCXSetCursorColors(ScrnInfoPtr pScrn, int bg, int fg)
 Bool 
 TCXHWCursorInit(ScreenPtr pScreen)
 {
-    ScrnInfoPtr pScrn = xf86Screens[pScreen->myNum];
+    ScrnInfoPtr pScrn = xf86ScreenToScrn(pScreen);
     TcxPtr pTcx;
     xf86CursorInfoPtr infoPtr;
 
