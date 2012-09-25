@@ -30,7 +30,6 @@
 #include "xf86.h"
 #include "xf86_OSproc.h"
 #include "mipointer.h"
-#include "mibstore.h"
 #include "micmap.h"
 
 #include "fb.h"
@@ -575,7 +574,6 @@ TCXScreenInit(SCREEN_INIT_ARGS_DECL)
     fbPictureInit (pScreen, 0, 0);
 #endif
 
-    miInitializeBackingStore(pScreen);
     xf86SetBackingStore(pScreen);
     xf86SetSilkenMouse(pScreen);
 
