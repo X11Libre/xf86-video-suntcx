@@ -1,6 +1,9 @@
 xf86-video-suntcx - TCX video driver for the Xorg X server
 ----------------------------------------------------------
 
+This is an Xorg driver for Sun S24 frame buffers. These video cards
+used a unique "AFX" connector only found in the Sun SPARCstation 5.
+
 All questions regarding this software should be directed at the
 Xorg mailing list:
 
