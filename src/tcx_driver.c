@@ -160,12 +160,8 @@ TCXGetRec(ScrnInfoPtr pScrn)
 static void
 TCXFreeRec(ScrnInfoPtr pScrn)
 {
-    TcxPtr pTcx;
-
     if (pScrn->driverPrivate == NULL)
 	return;
-
-    pTcx = GET_TCX_FROM_SCRN(pScrn);
 
     free(pScrn->driverPrivate);
     pScrn->driverPrivate = NULL;
