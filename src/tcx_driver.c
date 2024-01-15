@@ -583,8 +583,6 @@ TCXScreenInit(SCREEN_INIT_ARGS_DECL)
     /* Initialize HW cursor layer. 
        Must follow software cursor initialization*/
     if (pTcx->HWCursor) { 
-	extern Bool TCXHWCursorInit(ScreenPtr pScreen);
-
 	if(!TCXHWCursorInit(pScreen)) {
 	    xf86DrvMsg(pScrn->scrnIndex, X_ERROR, 
 		       "Hardware cursor initialization failed\n");

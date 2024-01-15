@@ -66,4 +66,6 @@ typedef struct {
 
 #define GET_TCX_FROM_SCRN(p)    ((TcxPtr)((p)->driverPrivate))
 
+extern Bool TCXHWCursorInit(ScreenPtr pScreen);
+
 #endif /* TCX_H */
