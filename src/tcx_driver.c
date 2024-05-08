@@ -153,7 +153,7 @@ TCXGetRec(ScrnInfoPtr pScrn)
     if (pScrn->driverPrivate != NULL)
 	return TRUE;
 
-    pScrn->driverPrivate = xnfcalloc(sizeof(TcxRec), 1);
+    pScrn->driverPrivate = XNFcallocarray(sizeof(TcxRec), 1);
     return TRUE;
 }
 
