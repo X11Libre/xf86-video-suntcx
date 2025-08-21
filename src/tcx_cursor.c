@@ -42,7 +42,7 @@ TCXLoadCursorImage(ScrnInfoPtr pScrn, unsigned char *src)
     TcxPtr pTcx = GET_TCX_FROM_SCRN(pScrn);
     int i, x, y;
     unsigned int *data = (unsigned int *)src;
-        
+
     pTcx->CursorData = src;
     x = pTcx->CursorShiftX;
     y = pTcx->CursorShiftY;
@@ -60,7 +60,7 @@ TCXLoadCursorImage(ScrnInfoPtr pScrn, unsigned char *src)
 	pTcx->thc->thc_cursbits[i] = 0;
 }
 
-static void 
+static void
 TCXShowCursor(ScrnInfoPtr pScrn)
 {
     TcxPtr pTcx = GET_TCX_FROM_SCRN(pScrn);
@@ -83,7 +83,7 @@ TCXSetCursorPosition(ScrnInfoPtr pScrn, int x, int y)
 {
     TcxPtr pTcx = GET_TCX_FROM_SCRN(pScrn);
     int CursorShiftX = 0, CursorShiftY = 0;
-    
+
     if (x < 0) {
 	CursorShiftX = -x;
 	x = 0;
@@ -121,7 +121,7 @@ TCXSetCursorColors(ScrnInfoPtr pScrn, int bg, int fg)
     }
 }
 
-Bool 
+Bool
 TCXHWCursorInit(ScreenPtr pScreen)
 {
     ScrnInfoPtr pScrn = xf86ScreenToScrn(pScreen);
@@ -138,7 +138,7 @@ TCXHWCursorInit(ScreenPtr pScreen)
 
     infoPtr = xf86CreateCursorInfoRec();
     if(!infoPtr) return FALSE;
-    
+
     pTcx->CursorInfoRec = infoPtr;
 
     infoPtr->MaxWidth = 32;
