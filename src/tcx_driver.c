@@ -92,8 +92,6 @@ static const OptionInfoRec TCXOptions[] = {
     { -1,			NULL,		OPTV_NONE,	{0}, FALSE }
 };
 
-#ifdef XFree86LOADER
-
 static MODULESETUPPROTO(tcxSetup);
 
 static XF86ModuleVersionInfo suntcxVersRec =
@@ -136,8 +134,6 @@ tcxSetup(pointer module, pointer opts, int *errmaj, int *errmin)
 	return NULL;
     }
 }
-
-#endif /* XFree86LOADER */
 
 static Bool
 TCXGetRec(ScrnInfoPtr pScrn)
