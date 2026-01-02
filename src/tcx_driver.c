@@ -37,21 +37,21 @@ static const OptionInfoRec * TCXAvailableOptions(int chipid, int busid);
 static void	TCXIdentify(int flags);
 static Bool	TCXProbe(DriverPtr drv, int flags);
 static Bool	TCXPreInit(ScrnInfoPtr pScrn, int flags);
-static Bool	TCXScreenInit(SCREEN_INIT_ARGS_DECL);
-static Bool	TCXEnterVT(VT_FUNC_ARGS_DECL);
-static void	TCXLeaveVT(VT_FUNC_ARGS_DECL);
-static Bool	TCXCloseScreen(CLOSE_SCREEN_ARGS_DECL);
+static Bool	TCXScreenInit(ScreenPtr pScreen, int argc, char **argv);
+static Bool	TCXEnterVT(ScrnInfoPtr arg);
+static void	TCXLeaveVT(ScrnInfoPtr arg);
+static Bool	TCXCloseScreen(ScreenPtr pScreen);
 static Bool	TCXSaveScreen(ScreenPtr pScreen, int mode);
 static void	TCXInitCplane24(ScrnInfoPtr pScrn);
 
 /* Required if the driver supports mode switching */
-static Bool	TCXSwitchMode(SWITCH_MODE_ARGS_DECL);
+static Bool	TCXSwitchMode(ScrnInfoPtr arg, DisplayModePtr mode);
 /* Required if the driver supports moving the viewport */
-static void	TCXAdjustFrame(ADJUST_FRAME_ARGS_DECL);
+static void	TCXAdjustFrame(ScrnInfoPtr arg, int x, int y);
 
 /* Optional functions */
-static void	TCXFreeScreen(FREE_SCREEN_ARGS_DECL);
-static ModeStatus TCXValidMode(SCRN_ARG_TYPE arg, DisplayModePtr mode,
+static void	TCXFreeScreen(ScrnInfoPtr arg);
+static ModeStatus TCXValidMode(ScrnInfoPtr arg, DisplayModePtr mode,
 			       Bool verbose, int flags);
 
 void TCXSync(ScrnInfoPtr pScrn);
@@ -458,7 +458,7 @@ TCXPreInit(ScrnInfoPtr pScrn, int flags)
 /* This gets called at the start of each server generation */
 
 static Bool
-TCXScreenInit(SCREEN_INIT_ARGS_DECL)
+TCXScreenInit(ScreenPtr pScreen, int argc, char **argv)
 {
     ScrnInfoPtr pScrn;
     TcxPtr pTcx;
@@ -606,7 +606,7 @@ TCXScreenInit(SCREEN_INIT_ARGS_DECL)
 
 /* Usually mandatory */
 static Bool
-TCXSwitchMode(SWITCH_MODE_ARGS_DECL)
+TCXSwitchMode(ScrnInfoPtr arg, DisplayModePtr mode)
 {
     return TRUE;
 }
@@ -618,7 +618,7 @@ TCXSwitchMode(SWITCH_MODE_ARGS_DECL)
  */
 /* Usually mandatory */
 static void
-TCXAdjustFrame(ADJUST_FRAME_ARGS_DECL)
+TCXAdjustFrame(ScrnInfoPtr arg, int x, int y)
 {
     /* we don't support virtual desktops */
     return;
@@ -631,9 +631,8 @@ TCXAdjustFrame(ADJUST_FRAME_ARGS_DECL)
 
 /* Mandatory */
 static Bool
-TCXEnterVT(VT_FUNC_ARGS_DECL)
+TCXEnterVT(ScrnInfoPtr pScrn)
 {
-    SCRN_INFO_PTR(arg);
     TcxPtr pTcx = GET_TCX_FROM_SCRN(pScrn);
 
     if (pTcx->HWCursor) {
@@ -654,7 +653,7 @@ TCXEnterVT(VT_FUNC_ARGS_DECL)
 
 /* Mandatory */
 static void
-TCXLeaveVT(VT_FUNC_ARGS_DECL)
+TCXLeaveVT(ScrnInfoPtr arg)
 {
     return;
 }
@@ -667,7 +666,7 @@ TCXLeaveVT(VT_FUNC_ARGS_DECL)
 
 /* Mandatory */
 static Bool
-TCXCloseScreen(CLOSE_SCREEN_ARGS_DECL)
+TCXCloseScreen(ScreenPtr pScreen)
 {
     ScrnInfoPtr pScrn = xf86ScreenToScrn(pScreen);
     TcxPtr pTcx = GET_TCX_FROM_SCRN(pScrn);
@@ -689,7 +688,7 @@ TCXCloseScreen(CLOSE_SCREEN_ARGS_DECL)
 	xf86SbusHideOsHwCursor (pTcx->psdp);
 
     pScreen->CloseScreen = pTcx->CloseScreen;
-    return (*pScreen->CloseScreen)(CLOSE_SCREEN_ARGS);
+    return (*pScreen->CloseScreen)(pScreen);
     return FALSE;
 }
 
@@ -698,9 +697,8 @@ TCXCloseScreen(CLOSE_SCREEN_ARGS_DECL)
 
 /* Optional */
 static void
-TCXFreeScreen(FREE_SCREEN_ARGS_DECL)
+TCXFreeScreen(ScrnInfoPtr pScrn)
 {
-    SCRN_INFO_PTR(arg);
     TCXFreeRec(pScrn);
 }
 
@@ -709,7 +707,7 @@ TCXFreeScreen(FREE_SCREEN_ARGS_DECL)
 
 /* Optional */
 static ModeStatus
-TCXValidMode(SCRN_ARG_TYPE arg, DisplayModePtr mode, Bool verbose, int flags)
+TCXValidMode(ScrnInfoPtr arg, DisplayModePtr mode, Bool verbose, int flags)
 {
     if (mode->Flags & V_INTERLACE)
 	return(MODE_BAD);
