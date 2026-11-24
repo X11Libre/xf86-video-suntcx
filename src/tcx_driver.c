@@ -62,6 +62,7 @@ void TCXSync(ScrnInfoPtr pScrn);
 #define TCX_MAJOR_VERSION PACKAGE_VERSION_MAJOR
 #define TCX_MINOR_VERSION PACKAGE_VERSION_MINOR
 #define TCX_PATCHLEVEL PACKAGE_VERSION_PATCHLEVEL
+#define TCX_VERSION_SUFFIX PACKAGE_VERSION_SUFFIX
 
 /*
  * This contains the functions needed by the server after loading the driver
@@ -109,6 +110,9 @@ static XF86ModuleVersionInfo suntcxVersRec =
 };
 
 _X_EXPORT XF86ModuleData suntcxModuleData = { &suntcxVersRec, tcxSetup, NULL };
+#ifdef XF86_MODULE_VERSION_SUFFIX
+XF86_MODULE_VERSION_SUFFIX(suntcx, TCX_VERSION_SUFFIX);
+#endif
 
 void *
 tcxSetup(void *module, void *opts, int *errmaj, int *errmin)
